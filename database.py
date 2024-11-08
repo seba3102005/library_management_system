@@ -51,8 +51,20 @@ def borrow_book(book_id):
             if book.is_borrowed == False:
                 book.is_borrowed=True
                 db.session.commit()
+                print (f"book {book_id} was borrowed successfully")
             else:
                 print("the book is not available right now")
+                choice = input("Do You want to borrow another Book (y/n)")
+                while choice.lower() not in ['y','n']:
+                    choice = input("Invalid,please Enter(y/n)")
+                if choice =='y':
+                    return '3'
+                elif choice =='n':
+                    return None
+                print (f"book {book_id} was borrowed successfully")
+
+                     
+
 
 def return_book(book_id):
         with app.app_context():
@@ -60,8 +72,18 @@ def return_book(book_id):
             if book.is_borrowed ==True:
                 book.is_borrowed=False
                 db.session.commit()
+                print (f"book {book_id} was returned successfully")
             else:
                 print("this book is not borrowed")
+                choice = input("do you want to return another book (y/n)")
+                while choice.lower() not in ['y','n']:
+                    choice = input("please enter a valid answer(y/n)")
+                if choice == 'y':
+                    return '4'
+                else:
+                     return None 
+                print (f"book {book_id} was returned successfully")
+
 
 
 def delete_book(id):
@@ -70,11 +92,15 @@ def delete_book(id):
             book = Book.query.get(id)
             db.session.delete(book)
             db.session.commit()
-            for new_id,book in enumerate(Book.query.all(),start=1):
-                book.id=new_id
+            if Book.query.count()==0:
+                return
+            else:
+                for new_id,book in enumerate(Book.query.all(),start=1):
+                    book.id=new_id
 
             db.session.add(book)
             db.session.commit()
+            
 
 
       
