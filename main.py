@@ -1,4 +1,4 @@
-from database import Book,add_book,view_books,app,borrow_book
+from database import Book,add_book,view_books,app,borrow_book,return_book
 
 def show_menu():
     print('1.Add a Book ')
@@ -27,6 +27,10 @@ while True:
     elif choice=='3':
         book = input("please enter the name of the book tha t you want to borrow")
         borrow_book(book)
+
+    elif choice == '4':
+        book = input ("please enter the name of the book that you want to return")
+        return_book(book)
 
     elif choice =='5':
         print("exitting the program")

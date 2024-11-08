@@ -52,7 +52,17 @@ def borrow_book(needed_book):
                 book.is_borrowed=True
                 db.session.commit()
             else:
-                print("the book is not available right now") 
+                print("the book is not available right now")
+
+def return_book(needed_book):
+        with app.app_context():
+            book = Book.query.filter_by(name=needed_book).first()
+            if book.is_borrowed ==True:
+                book.is_borrowed=False
+                db.session.commit()
+            else:
+                print("this book is not borrowed")
+      
 
 
 
