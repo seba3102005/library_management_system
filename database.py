@@ -42,7 +42,7 @@ def view_books():
             books = Book.query.all()
             
             for book in books:
-                print (f"{book.name}: {book.author} :{book.publication_year} :{book.is_borrowed}") 
+                print (f"<{book.id}> : {book.name}: {book.author} :{book.publication_year} :{book.is_borrowed}") 
 
 def borrow_book(needed_book):
         with app.app_context():
@@ -62,6 +62,21 @@ def return_book(needed_book):
                 db.session.commit()
             else:
                 print("this book is not borrowed")
+
+
+def delete_book(id):
+        with app.app_context():
+
+            book = Book.query.get(id)
+            db.session.delete(book)
+            db.session.commit()
+            for new_id,book in enumerate(Book.query.all(),start=1):
+                book.id=new_id
+
+            db.session.add(book)
+            db.session.commit()
+            
+
       
 
 

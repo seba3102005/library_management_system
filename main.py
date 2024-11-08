@@ -1,11 +1,12 @@
-from database import Book,add_book,view_books,app,borrow_book,return_book
+from database import Book,add_book,view_books,app,borrow_book,return_book,delete_book
 
 def show_menu():
     print('1.Add a Book ')
     print('2.View Books')
     print('3.Borrow a Book')
     print('4.Return a Book')
-    print('5.Exit ')
+    print('5.Delete a book')
+    print('6.Exit ')
 
 show_menu()
 choice = input("enter your choice")
@@ -33,6 +34,10 @@ while True:
         return_book(book)
 
     elif choice =='5':
+        id = input("enter the number of book that you want to delete")
+        delete_book(int(id))
+
+    elif choice =='6':
         print("exitting the program")
         break
 
