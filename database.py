@@ -42,7 +42,7 @@ def view_books():
             books = Book.query.all()
             
             for book in books:
-                print (f"<{book.id}> : {book.name}: {book.author} :{book.publication_year} :{book.is_borrowed}") 
+                print (f"<{book.id}> : {book.name}: {book.author} :{book.publication_year} :{"borrowed" if book.is_borrowed else "available"}") 
 
 def borrow_book(book_id):
         with app.app_context():

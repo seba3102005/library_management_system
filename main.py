@@ -11,11 +11,10 @@ def show_menu():
 show_menu()
 choice = input("enter your choice")
 while True:
+    show_menu()
     with app.app_context():
             db_size = Book.query.count()
             available_choices = [str(n) for n in range(db_size+1)]
-
-
 
     if choice =='1':
     
@@ -25,6 +24,7 @@ while True:
         book = Book(name=name ,author=author, publication_year=publication_year)
         
         add_book(book)
+        print (f"book {book_id} was added successfully")
         
 
     elif choice =='2':
@@ -37,17 +37,17 @@ while True:
                 print("invalid book to borrow ,Please enter a valid one")
                 book_id = input("please enter the number of the book tha t you want to borrow")
         borrow_book(int(book_id))
+        print (f"book {book_id} was borrowed successfully")
     
-            
-
-        
-        
+       
     elif choice == '4':
         book_id = input ("please enter the number of the book that you want to return")
         while book_id not in available_choices:
             print("invalid book to return ,Please enter a valid one")
             book_id = input("please enter the number of the book tha t you want to return")
         return_book(int(book_id))
+        print (f"book {book_id} was returned successfully")
+
 
     elif choice =='5':
         id = input("enter the number of book that you want to delete")
