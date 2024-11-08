@@ -8,8 +8,6 @@ def IsEmpty_validation(string ,variable):
     return string
 
 
-
-
 def show_menu():
     print ('='*50)
     print('1.Add a Book ')
@@ -36,10 +34,12 @@ while True:
     available_dates = [str(i) for i in range(1000,2025)]
     with app.app_context():
             db_size = Book.query.count()
-            available_choices = [str(n) for n in range(db_size+1)]
+            available_choices = [str(n) for n in range(1,db_size+1)]
             name_list = [ i[0] for i in db.session.query(Book.name).all()]
+
             borrow_size=0
             return_size=0
+
             for i in db.session.query(Book.is_borrowed).all():
                 if i[0]:
                     borrow_size+=1
@@ -71,8 +71,9 @@ while True:
     elif choice =='2':
         if db_size==0:
             print ("the library is empty")
-            
             continue
+
+
         view_books()
 
 
@@ -80,39 +81,48 @@ while True:
         if db_size==0:
             print("the list is empty, no books to be borrowed: ")
             continue
+
         view_books()
         if db_size==borrow_size:
-            
             print("all the books are borrowed ,you cannot borrow any")
             continue
+
         book_id = input("please enter the number of the book that you want to borrow: ")
+
         while book_id not in available_choices:
                 print("invalid book to borrow ,Please enter a valid one")
                 book_id = input("please enter the number of the book that you want to borrow: ")
+
         return_type = borrow_book(int(book_id))
+
         if return_type =='3':
             choice='3'
             flag = True
         else:
-            
             flag = False
 
         
        
     elif choice == '4':
+
         if db_size==0:
             print("the list is empty, no books to be returned")
             continue
         view_books()
+
         if db_size==return_size:
             
             print("all the books are returned ,you cannot return any")
             continue
+
         book_id = input ("please enter the number of the book that you want to return: ")
+
         while book_id not in available_choices:
             print("invalid book to return ,Please enter a valid one")
             book_id = input("please enter the number of the book tha t you want to return: ")
+
         return_type = return_book(int(book_id))
+
         if return_type == '4':
             choice = '4'
             flag =True
@@ -125,8 +135,12 @@ while True:
         if db_size==0:
             print("the list is empty, no books to be deleted")
             continue
+
         view_books()
         id = input("enter the number of book that you want to delete: ")
+
+        while id not in available_choices:
+            id = input("invalid book to be deleted enter a valid one: ")
         delete_book(int(id))
 
     elif choice =='6':

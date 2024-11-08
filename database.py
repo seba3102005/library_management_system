@@ -27,7 +27,7 @@ class Book(db.Model):
         return f"<Book(name={self.name})>"
     
 
-#lazem tt7at t7t el class
+
 with app.app_context():
     db.create_all()
 
@@ -42,7 +42,7 @@ def view_books():
             books = Book.query.all()
             
             for book in books:
-                print (f"<{book.id}> : {book.name}: {book.author} :{book.publication_year} :{"borrowed" if book.is_borrowed else "available"}") 
+                print (f"<{book.id}> Book's name: {book.name}   Author's name: {book.author}   puclication year: {book.publication_year}   status: {"borrowed" if book.is_borrowed else "available"}") 
 
 def borrow_book(book_id):
         with app.app_context():
