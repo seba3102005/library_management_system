@@ -44,19 +44,19 @@ def view_books():
             for book in books:
                 print (f"<{book.id}> : {book.name}: {book.author} :{book.publication_year} :{book.is_borrowed}") 
 
-def borrow_book(needed_book):
+def borrow_book(book_id):
         with app.app_context():
             
-            book = Book.query.filter_by(name=needed_book).first()
+            book = Book.query.filter_by(id=book_id).first()
             if book.is_borrowed == False:
                 book.is_borrowed=True
                 db.session.commit()
             else:
                 print("the book is not available right now")
 
-def return_book(needed_book):
+def return_book(book_id):
         with app.app_context():
-            book = Book.query.filter_by(name=needed_book).first()
+            book = Book.query.filter_by(id=book_id).first()
             if book.is_borrowed ==True:
                 book.is_borrowed=False
                 db.session.commit()
@@ -75,7 +75,7 @@ def delete_book(id):
 
             db.session.add(book)
             db.session.commit()
-            
+
 
       
 
